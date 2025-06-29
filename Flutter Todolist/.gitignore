@@ -1,0 +1,76 @@
+# Miscellaneous
+*.log
+.DS_Store
+*.swp
+Thumbs.db
+
+# Flutter/Dart/Pub related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+*.g.dart
+*.freezed.dart
+*.part.dart
+
+# Environment variables and secrets
+.env
+*.env
+*.key
+*.pem
+*.cer
+
+# VS Code
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Android
+/android/app/debug
+/android/app/profile
+/android/app/release
+/android/.gradle/
+/android/.idea/
+/android/build/
+*.apk
+*.aab
+*.ap_
+
+# iOS
+**/ios/Flutter/.last_build_id
+**/ios/Pods/
+**/ios/Runner.xcworkspace/
+**/ios/build/
+*.ipa
+
+# Web
+/web/build/
+
+# Symbolication and obfuscation
+app.*.symbols
+app.*.map.json
+
+# Xcode
+**/xcuserdata/
+*.xcuserstate
+*.xcodeproj
+
+# Fastlane (if used)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Other tools
+.fvm/
+*.lock
