@@ -13,14 +13,14 @@ cmake_policy(VERSION 3.14...3.25)
 # Define build configuration option.
 get_property(IS_MULTICONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(IS_MULTICONFIG)
-  set(CMAKE_CONFIGURATION_TYPES "Debug;Profile;Release"
+  set(CMAKE_CONFIGURATION_TYPES "DEBUG;Profile;Release"
     CACHE STRING "" FORCE)
 else()
   if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-    set(CMAKE_BUILD_TYPE "Debug" CACHE
+    set(CMAKE_BUILD_TYPE "DEBUG" CACHE
       STRING "Flutter build mode" FORCE)
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
-      "Debug" "Profile" "Release")
+      "DEBUG" "Profile" "Release")
   endif()
 endif()
 # Define settings for the Profile build mode.
@@ -42,7 +42,7 @@ function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_options(${TARGET} PRIVATE /W4 /WX /wd"4100")
   target_compile_options(${TARGET} PRIVATE /EHsc)
   target_compile_definitions(${TARGET} PRIVATE "_HAS_EXCEPTIONS=0")
-  target_compile_definitions(${TARGET} PRIVATE "$<$<CONFIG:Debug>:_DEBUG>")
+  target_compile_definitions(${TARGET} PRIVATE "$<$<CONFIG:DEBUG>:_DEBUG>")
 endfunction()
 
 # Flutter library and tool build rules.
@@ -102,7 +102,7 @@ install(CODE "
 install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
   DESTINATION "${INSTALL_BUNDLE_DATA_DIR}" COMPONENT Runtime)
 
-# Install the AOT library on non-Debug builds only.
+# Install the AOT library on non-DEBUG builds only.
 install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
   CONFIGURATIONS Profile;Release
   COMPONENT Runtime)
