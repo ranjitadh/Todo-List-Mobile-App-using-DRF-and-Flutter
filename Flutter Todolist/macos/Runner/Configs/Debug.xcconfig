@@ -1,2 +1,2 @@
-#include "../../Flutter/Flutter-Debug.xcconfig"
+#include "../../Flutter/Flutter-DEBUG.xcconfig"
 #include "Warnings.xcconfig"

@@ -28,10 +28,10 @@ endif()
 
 # Define build configuration options.
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
-  set(CMAKE_BUILD_TYPE "Debug" CACHE
+  set(CMAKE_BUILD_TYPE "DEBUG" CACHE
     STRING "Flutter build mode" FORCE)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
-    "Debug" "Profile" "Release")
+    "" "Profile" "Release")
 endif()
 
 # Compilation settings that should be applied to most targets.
@@ -42,8 +42,8 @@ endif()
 function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_features(${TARGET} PUBLIC cxx_std_14)
   target_compile_options(${TARGET} PRIVATE -Wall -Werror)
-  target_compile_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-O3>")
-  target_compile_definitions(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:NDEBUG>")
+  target_compile_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:DEBUG>>:-O3>")
+  target_compile_definitions(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:DEBUG>>:NDEBUG>")
 endfunction()
 
 # Flutter library and tool build rules.
@@ -121,8 +121,8 @@ install(CODE "
 install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
   DESTINATION "${INSTALL_BUNDLE_DATA_DIR}" COMPONENT Runtime)
 
-# Install the AOT library on non-Debug builds only.
-if(NOT CMAKE_BUILD_TYPE MATCHES "Debug")
+# Install the AOT library on non-DEBUG builds only.
+if(NOT CMAKE_BUILD_TYPE MATCHES "DEBUG")
   install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
     COMPONENT Runtime)
 endif()

@@ -7,10 +7,10 @@ class todolistmodel {
   todolistmodel({this.id, this.name, this.description, this.status});
 
   todolistmodel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    description = json['description'];
-    status = json['status'];
+    id = json['id'] as int?;
+    name = json['name'] as String?;
+    description = json['description'] as String?;
+    status = (json['status'] as String?)?.toLowerCase();
   }
 
   Map<String, dynamic> toJson() {
@@ -21,4 +21,6 @@ class todolistmodel {
     data['status'] = status;
     return data;
   }
+
+  bool get isProcessed => status?.toLowerCase() == 'proccessed' || status?.toLowerCase() == 'processed';
 }
