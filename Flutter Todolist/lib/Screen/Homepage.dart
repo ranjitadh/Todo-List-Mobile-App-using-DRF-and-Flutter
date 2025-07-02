@@ -23,245 +23,270 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.white.withOpacity(0.2)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 20,
-                      spreadRadius: 5,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Add New Todo',
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      controller: _nameController,
-                      style: GoogleFonts.poppins(color: Colors.white),
-                      decoration: InputDecoration(
-                        labelText: 'Name',
-                        labelStyle: GoogleFonts.poppins(color: Colors.white70),
-                        filled: true,
-                        fillColor: Colors.white.withOpacity(0.1),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.2),
-                          ),
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return Dialog(
+              backgroundColor: Colors.transparent,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.white.withOpacity(0.2)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 20,
+                          spreadRadius: 5,
                         ),
-                      ),
+                      ],
                     ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          _selectedTime == null
-                              ? 'No time selected'
-                              : 'Time: ${_selectedTime!.format(context)}',
-                          style: GoogleFonts.poppins(color: Colors.white70),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Colors.blue, Colors.purple],
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.blue.withOpacity(0.4),
-                                blurRadius: 10,
-                                spreadRadius: 2,
-                              ),
-                            ],
+                          'Add New Todo',
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              final time = await showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.now(),
-                                builder: (context, child) {
-                                  return Theme(
-                                    data: ThemeData.dark().copyWith(
-                                      colorScheme: const ColorScheme.dark(
-                                        primary: Colors.blue,
-                                        onPrimary: Colors.white,
-                                        surface: Colors.black87,
-                                        onSurface: Colors.white,
-                                      ),
-                                      dialogBackgroundColor: Colors.black
-                                          .withOpacity(0.8),
-                                    ),
-                                    child: child!,
-                                  );
-                                },
-                              );
-                              if (time != null) {
-                                setState(() {
-                                  _selectedTime = time;
-                                });
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 10,
+                        ),
+                        const SizedBox(height: 16),
+                        TextField(
+                          controller: _nameController,
+                          style: GoogleFonts.poppins(color: Colors.white),
+                          decoration: InputDecoration(
+                            labelText: 'Name',
+                            labelStyle: GoogleFonts.poppins(
+                              color: Colors.white70,
+                            ),
+                            filled: true,
+                            fillColor: Colors.white.withOpacity(0.1),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: Colors.white.withOpacity(0.2),
                               ),
-                              shape: RoundedRectangleBorder(
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              _selectedTime == null
+                                  ? 'No time selected'
+                                  : 'Time: ${_selectedTime!.format(context)}',
+                              style: GoogleFonts.poppins(color: Colors.white70),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Colors.blue, Colors.purple],
+                                ),
                                 borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            child: Text(
-                              'Select Time',
-                              style: GoogleFonts.poppins(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    DropdownButton<String>(
-                      value: _selectedStatus,
-                      items: const [
-                        DropdownMenuItem(
-                          value: 'Pending',
-                          child: Text(
-                            'Pending',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Completed',
-                          child: Text(
-                            'Completed',
-                            style: TextStyle(color: Colors.green),
-                          ),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedStatus = value;
-                        });
-                      },
-                      style: GoogleFonts.poppins(color: Colors.white),
-                      dropdownColor: Colors.black.withOpacity(0.8),
-                      icon: Icon(Icons.arrow_drop_down, color: Colors.white70),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text(
-                            'Cancel',
-                            style: GoogleFonts.poppins(color: Colors.white70),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Colors.blue, Colors.purple],
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.blue.withOpacity(0.4),
-                                blurRadius: 10,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              final name = _nameController.text.trim();
-                              if (name.isNotEmpty && _selectedTime != null) {
-                                try {
-                                  final description =
-                                      '${_selectedTime!.format(context)}';
-                                  final newStatus =
-                                      _selectedStatus == 'Completed'
-                                          ? 'proccessed'
-                                          : 'pending';
-                                  final newTodo = todolistmodel(
-                                    name: name,
-                                    description: description,
-                                    status: newStatus,
-                                  );
-                                  final createdTodo = await Service.createTodo(
-                                    newTodo,
-                                  );
-                                  setState(
-                                    () {},
-                                  ); // Trigger FutureBuilder to refresh
-                                  _nameController.clear();
-                                  _selectedTime = null;
-                                  _selectedStatus = 'Pending';
-                                  Navigator.pop(context);
-                                } catch (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('Failed to add todo: $e'),
-                                    ),
-                                  );
-                                }
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Please enter a name and select a time',
-                                    ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blue.withOpacity(0.4),
+                                    blurRadius: 10,
+                                    spreadRadius: 2,
                                   ),
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 10,
+                                ],
                               ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  final time = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                    builder: (context, child) {
+                                      return Theme(
+                                        data: ThemeData.dark().copyWith(
+                                          colorScheme: const ColorScheme.dark(
+                                            primary: Colors.blue,
+                                            onPrimary: Colors.white,
+                                            surface: Colors.black87,
+                                            onSurface: Colors.white,
+                                          ),
+                                          dialogBackgroundColor: Colors.black
+                                              .withOpacity(0.8),
+                                        ),
+                                        child: child!,
+                                      );
+                                    },
+                                  );
+                                  if (time != null) {
+                                    setDialogState(() {
+                                      _selectedTime = time;
+                                    });
+                                    setState(() {
+                                      _selectedTime = time;
+                                    });
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: Colors.transparent,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 10,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Select Time',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
-                            child: Text(
-                              'Add',
-                              style: GoogleFonts.poppins(color: Colors.white),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        DropdownButton<String>(
+                          value: _selectedStatus,
+                          items: const [
+                            DropdownMenuItem(
+                              value: 'Pending',
+                              child: Text(
+                                'Pending',
+                                style: TextStyle(color: Colors.red),
+                              ),
                             ),
+                            DropdownMenuItem(
+                              value: 'Completed',
+                              child: Text(
+                                'Completed',
+                                style: TextStyle(color: Colors.green),
+                              ),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            setDialogState(() {
+                              _selectedStatus = value;
+                            });
+                            setState(() {
+                              _selectedStatus = value;
+                            });
+                          },
+                          style: GoogleFonts.poppins(color: Colors.white),
+                          dropdownColor: Colors.black.withOpacity(0.8),
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.white70,
                           ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text(
+                                'Cancel',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white70,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Container(
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Colors.blue, Colors.purple],
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blue.withOpacity(0.4),
+                                    blurRadius: 10,
+                                    spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  final name = _nameController.text.trim();
+                                  if (name.isNotEmpty &&
+                                      _selectedTime != null) {
+                                    try {
+                                      final description =
+                                          '${_selectedTime!.format(context)}';
+                                      final newStatus =
+                                          _selectedStatus == 'Completed'
+                                              ? 'proccessed'
+                                              : 'pending';
+                                      final newTodo = todolistmodel(
+                                        name: name,
+                                        description: description,
+                                        status: newStatus,
+                                      );
+                                      final createdTodo =
+                                          await Service.createTodo(newTodo);
+                                      setState(
+                                        () {},
+                                      ); // Trigger FutureBuilder to refresh
+                                      _nameController.clear();
+                                      _selectedTime = null;
+                                      _selectedStatus = 'Pending';
+                                      Navigator.pop(context);
+                                    } catch (e) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Failed to add todo: $e',
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Please enter a name and select a time',
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  shadowColor: Colors.transparent,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 10,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                child: Text(
+                                  'Add',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

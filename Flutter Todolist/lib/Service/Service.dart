@@ -33,7 +33,7 @@ class Service {
 
   static Future<todolistmodel> createTodo(todolistmodel todo) async {
     final response = await http.post(
-      Uri.parse('http://localhost/8000/todolist/api/items/'),
+      Uri.parse('http://localhost:8000/todolist/api/items/'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(todo.toJson()..remove('id')),
     );
