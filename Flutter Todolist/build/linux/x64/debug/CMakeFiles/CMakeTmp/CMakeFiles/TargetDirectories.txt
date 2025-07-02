@@ -1,3 +1,0 @@
-/home/ranjit/Desktop/API/Flutter Todolist/build/linux/x64/debug/CMakeFiles/CMakeTmp/CMakeFiles/rebuild_cache.dir
-/home/ranjit/Desktop/API/Flutter Todolist/build/linux/x64/debug/CMakeFiles/CMakeTmp/CMakeFiles/edit_cache.dir
-/home/ranjit/Desktop/API/Flutter Todolist/build/linux/x64/debug/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_c4497.dir
